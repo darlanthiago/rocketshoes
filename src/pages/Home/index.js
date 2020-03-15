@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 
 import { ProductList, LoaderContainer } from './styles';
 
@@ -10,11 +10,11 @@ import { MdAddShoppingCart } from 'react-icons/md';
 
 import api from '../../services/api';
 
-import * as CartAction from '../../store/modules/cart/actions';
-
 import { formatPrice } from '../../util/format';
 
 import MyLoader from '../../components/Loader/';
+
+import * as CartActions from "../../store/modules/cart/actions";
 
 class Home extends Component {
 
@@ -35,7 +35,7 @@ class Home extends Component {
         this.setState({ products: data, loading: false });
     }
 
-    handleAddProduct = id => {
+    handleAddProduct(id) {
 
         const { addToCartRequest } = this.props;
 
@@ -43,9 +43,11 @@ class Home extends Component {
     }
 
 
+
     render() {
 
         const { products, loading } = this.state;
+
         const { amount } = this.props;
 
         if (loading) {
@@ -91,15 +93,14 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-
     amount: state.cart.reduce((amount, product) => {
         amount[product.id] = product.amount;
         return amount;
-    }, {})
 
+    }, {})
 });
 
 const mapDispatchToProps = dispatch =>
-    bindActionCreators(CartAction, dispatch);
+    bindActionCreators(CartActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
