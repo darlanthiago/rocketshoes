@@ -7,10 +7,12 @@ import { Container, Cart } from './styles';
 import logo from '../../assets/img/logo.svg';
 
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
-function Header({ cartSize }) {
+export default function Header() {
+
+    const cartSize = useSelector(state => state.cart.length);
 
     return (
         <Container>
@@ -31,9 +33,3 @@ function Header({ cartSize }) {
         </Container>
     );
 }
-
-const mapStateToProps = state => ({
-    cartSize: state.cart.length,
-});
-
-export default connect(mapStateToProps)(Header);
